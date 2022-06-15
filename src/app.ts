@@ -1,5 +1,6 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
+import morgan from 'morgan';
 
 const PORT = process.env.PORT || 5000;
 
@@ -7,6 +8,8 @@ const prisma = new PrismaClient();
 
 const main = async () => {
   const app = express();
+
+  app.use(morgan('common'));
 
   app.get('/message/add', async (_req, res) => {
     const message = await prisma.message.create({
